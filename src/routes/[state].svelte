@@ -1,15 +1,27 @@
 <script context="module">
-export async function preload(page){
-    console.log(page);
-    return { state:page.params['state']};
-}
+  import stateNames from "../data/stateNames.js";
+
+  export async function preload(page) {
+    const state = page.params["state"];
+    if (stateNames.find(s => s.abbreviation === state) === undefined) {
+      this.error(404, "State Not Found");
+      return;
+    }
+
+    try {
+      return { state: page.params["state"] };
+    } catch (e) {
+      this.error(500, "There was an error calling the api try again later.");
+      return;
+    }
+  }
 </script>
 
 <script>
-import CovidStat from '../components/CovidStat.svelte';
-import CovidChart from '../components/CovidChart.svelte';
-import TableContainer from '../components/TableContainer.svelte';
-export let state;
+  import CovidStat from "../components/CovidStat.svelte";
+  import CovidChart from "../components/CovidChart.svelte";
+  import TableContainer from "../components/TableContainer.svelte";
+  export let state;
 </script>
 
 <svelte:head>
@@ -17,8 +29,8 @@ export let state;
 </svelte:head>
 
 <div class="section header">
-<h1>Covid- {state}</h1>
+  <h1>Covid- {state}</h1>
 </div>
 
-<CovidStat/>
-<CovidChart/>
+<CovidStat />
+<CovidChart />
