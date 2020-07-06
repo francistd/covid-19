@@ -1,5 +1,6 @@
 <script context="module">
   import stateNames from "../data/stateNames.js";
+  import request from "../data/request.js";
 
   export async function preload(page) {
     const state = page.params["state"];
@@ -8,8 +9,9 @@
       return;
     }
 
-    try {
-      return { state: page.params["state"] };
+    try { 
+      const stats = await request.stateStats(state);
+      return { state, stats };
     } catch (e) {
       this.error(500, "There was an error calling the api try again later.");
       return;
@@ -22,6 +24,7 @@
   import CovidChart from "../components/CovidChart.svelte";
   import TableContainer from "../components/TableContainer.svelte";
   export let state;
+  export let stats;
 </script>
 
 <svelte:head>
@@ -32,5 +35,5 @@
   <h1>Covid- {state}</h1>
 </div>
 
-<CovidStat />
+<CovidStat {...stats}/>
 <CovidChart />
