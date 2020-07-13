@@ -14,6 +14,7 @@
     try { 
       const stats = await request.stateStats(state);
       const historic = await request.historicState(state);
+      
       return { state:fullStateName, stats, historic };
     } catch (e) {
       this.error(500, "There was an error calling the api try again later.");

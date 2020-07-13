@@ -5,7 +5,8 @@
     try {
       const usStats = await requests.usStats();
       const historic = await requests.historicUS();
-      return { usStats, historic };
+      const statesData = await requests.statesData();
+      return { usStats, historic, statesData };
     } catch (e) {
       this.error(500, 'There was an error calling the api try again later.');
       return;
@@ -20,7 +21,7 @@
 
   export let usStats;
   export let historic;
-  console.log(historic, "historic");
+  export let statesData;
 </script>
 
 <svelte:head>
@@ -33,4 +34,4 @@
 
 <CovidStat {...usStats} />
 <CovidChart historicData= {historic} title="US Covid-19"/>
-<TableContainer />
+<TableContainer data={statesData} />
