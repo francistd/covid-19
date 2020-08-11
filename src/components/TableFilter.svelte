@@ -16,7 +16,7 @@ input, .select, select {
 <div class="container">
 <div class="columns">
 <div class="column is-6">
-<input type="text" class="input" bind:value={stateName} placeholder="Filter States">
+<input type="text" class="input" bind:value={stateName} placeholder="Filter Per States">
 </div>
 <div class="column is-6">
 <div class="select">
